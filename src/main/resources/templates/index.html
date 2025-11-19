@@ -6,13 +6,139 @@
   <link rel="stylesheet" th:href="@{/css/style-top.css}">
 </head>
 <body>
-  <header th:fragment="header">
-    <div class="header-container">
-      <a th:href="@{/login}">ログイン/新規会員登録</a>
-      <a th:href="@{/mypage}">マイページ</a>
-      <a th:href="@{/mytag}">マイタグ</a>
+<!-- ヘッダー -->
+<header class="header">
+  <div class="container">
+    <div class="header-content">
+      <div class="logo">👗 ファッションニュース</div>
+      <div class="user-menu">
+        <a href="#" class="btn btn-outline">マイタグ管理</a>
+        <a href="#" class="btn btn-outline">お気に入り</a>
+        <a href="#" class="btn btn-outline">マイページ</a>
+      </div>
     </div>
-  </header>
+  </div>
+</header>
 
+<div class="container">
+  <div class="main-content">
+    <!-- サイドバー - フィルター -->
+    <aside class="sidebar">
+      <div class="filter-section">
+        <div class="filter-title">マイタグでフィルター</div>
+        <div class="tag-list">
+          <div class="tag-item">
+            <div class="tag-color" style="background-color: #FF6B6B;"></div>
+            <span class="tag-name">春コート</span>
+          </div>
+          <div class="tag-item">
+            <div class="tag-color" style="background-color: #4ECDC4;"></div>
+            <span class="tag-name">トレンドカラー</span>
+          </div>
+          <div class="tag-item">
+            <div class="tag-color" style="background-color: #45B7D1;"></div>
+            <span class="tag-name">ユニクロ</span>
+          </div>
+          <div class="tag-item">
+            <div class="tag-color" style="background-color: #96CEB4;"></div>
+            <span class="tag-name">韓国ファッション</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="filter-section">
+        <div class="filter-title">ソート</div>
+        <select class="btn" style="width: 100%; padding: 0.5rem;">
+          <option>新着順</option>
+          <option>人気順</option>
+          <option>お気に入り順</option>
+        </select>
+      </div>
+    </aside>
+
+    <!-- メインコンテンツ - ニュース一覧 -->
+    <main class="news-grid">
+      <!-- ニュースカード 1 -->
+      <article class="news-card">
+        <div class="news-title">
+          <img src="https://via.placeholder.com/400x200/667eea/white?text=Fashion+News"
+               alt="春の新作コート" class="news-image">
+          <button class="favorite-btn">♥</button>
+        </div>
+        <div class="news-content">
+          <div class="news-source">
+            <span class="source-name">VOGUE Japan</span>
+            <span class="news-date">2024年1月20日</span>
+          </div>
+          <h3 class="news-title">2024年春のトレンドコート総まとめ</h3>
+          <p class="news-description">
+            今年の春はパステルカラーのトレンチコートが大流行。軽やかで着心地の良い素材を使った新作が各ブランドから続々登場しています。
+          </p>
+          <div class="news-footer">
+            <div class="news-tags">
+              <span class="news-tag" style="background-color: #FF6B6B; color: white;">春コート</span>
+              <span class="news-tag" style="background-color: #4ECDC4; color: white;">トレンドカラー</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- ニュースカード 2 -->
+      <article class="news-card">
+        <div class="news-title">
+          <img src="https://via.placeholder.com/400x200/764ba2/white?text=Style+Trend"
+               alt="韓国ファッション" class="news-image">
+          <button class="favorite-btn active">♥</button>
+        </div>
+        <div class="news-content">
+          <div class="news-source">
+            <span class="source-name">ELLE Japan</span>
+            <span class="news-date">2024年1月19日</span>
+          </div>
+          <h3 class="news-title">ソウルファッションウィークで話題のスタイル</h3>
+          <p class="news-description">
+            韓国発のストリートファッションが世界から注目。オーバーサイズとフィット感のバランスが鍵となる今季のコーディネート術。
+          </p>
+          <div class="news-footer">
+            <div class="news-tags">
+              <span class="news-tag" style="background-color: #96CEB4; color: white;">韓国ファッション</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- ニュースカード 3 -->
+      <article class="news-card">
+        <div class="news-title">
+          <img src="https://via.placeholder.com/400x200/764ba2/white?text=Style+Trend"
+               alt="韓国ファッション" class="news-image">
+            <button class="favorite-btn">♥</button>
+        </div>
+        <div class="news-content">
+          <div class="news-source">
+            <span class="source-name">FASHION NEWS</span>
+            <span class="news-date">2024年1月18日</span>
+          </div>
+          <h3 class="news-title">ユニクロの新作UTコレクションに人気アーティストが参加</h3>
+          <p class="news-description">
+            ユニクロが発表した新作UTコレクションには、国内外の人気アーティスト10組がデザインを提供。限定販売となるため要チェックです。
+          </p>
+          <div class="news-footer">
+            <div class="news-tags">
+              <span class="news-tag" style="background-color: #45B7D1; color: white;">ユニクロ</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- ローディング状態の例 -->
+      <div class="loading" id="loadingIndicator" style="display: none;">
+        <div style="margin-bottom: 1rem;">ニュースを読み込み中...</div>
+        <div class="skeleton" style="height: 200px; margin-bottom: 1rem;"></div>
+        <div class="skeleton" style="height: 100px;"></div>
+      </div>
+    </main>
+  </div>
+</div>
 </body>
 </html>
