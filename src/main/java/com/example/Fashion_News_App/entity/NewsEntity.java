@@ -1,12 +1,19 @@
-package com.example.Fashion_News_App.model;
+package com.example.Fashion_News_App.entity;
 
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDateTime;
 
+@Entity
+@Table(name = "news")
 @Data
-public class NewsModel {
-    private String id;
+public class NewsEntity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     private String sourceId;
     private String sourceName;
     private String author;
@@ -14,8 +21,7 @@ public class NewsModel {
     private String description;
     private String url;
     private String urlToImage;
-    private String publishedAt;
-    private String content;
+    private LocalDateTime publishedAt;
     private String category;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
