@@ -59,7 +59,7 @@
     <!-- メインコンテンツ - ニュース一覧 -->
     <main class="news-grid">
       <!-- ニュースカード 1 -->
-      <article class="news-card">
+      <article class="news-card" th:each="news : ${newsList}">
         <div class="news-title">
           <img src="https://via.placeholder.com/400x200/667eea/white?text=Fashion+News"
                alt="春の新作コート" class="news-image">
@@ -70,62 +70,12 @@
             <span class="source-name">VOGUE Japan</span>
             <span class="news-date">2024年1月20日</span>
           </div>
-          <h3 class="news-title">2024年春のトレンドコート総まとめ</h3>
-          <p class="news-description">
-            今年の春はパステルカラーのトレンチコートが大流行。軽やかで着心地の良い素材を使った新作が各ブランドから続々登場しています。
-          </p>
+          <h3 class="news-title" th:text="${news.title}">ニュースタイトル</h3>
+          <p class="news-description" th:text="${news.description}">ニュースの説明</p>
           <div class="news-footer">
             <div class="news-tags">
               <span class="news-tag" style="background-color: #FF6B6B; color: white;">春コート</span>
               <span class="news-tag" style="background-color: #4ECDC4; color: white;">トレンドカラー</span>
-            </div>
-          </div>
-        </div>
-      </article>
-
-      <!-- ニュースカード 2 -->
-      <article class="news-card">
-        <div class="news-title">
-          <img src="https://via.placeholder.com/400x200/764ba2/white?text=Style+Trend"
-               alt="韓国ファッション" class="news-image">
-          <button class="favorite-btn active">♥</button>
-        </div>
-        <div class="news-content">
-          <div class="news-source">
-            <span class="source-name">ELLE Japan</span>
-            <span class="news-date">2024年1月19日</span>
-          </div>
-          <h3 class="news-title">ソウルファッションウィークで話題のスタイル</h3>
-          <p class="news-description">
-            韓国発のストリートファッションが世界から注目。オーバーサイズとフィット感のバランスが鍵となる今季のコーディネート術。
-          </p>
-          <div class="news-footer">
-            <div class="news-tags">
-              <span class="news-tag" style="background-color: #96CEB4; color: white;">韓国ファッション</span>
-            </div>
-          </div>
-        </div>
-      </article>
-
-      <!-- ニュースカード 3 -->
-      <article class="news-card">
-        <div class="news-title">
-          <img src="https://via.placeholder.com/400x200/764ba2/white?text=Style+Trend"
-               alt="韓国ファッション" class="news-image">
-            <button class="favorite-btn">♥</button>
-        </div>
-        <div class="news-content">
-          <div class="news-source">
-            <span class="source-name">FASHION NEWS</span>
-            <span class="news-date">2024年1月18日</span>
-          </div>
-          <h3 class="news-title">ユニクロの新作UTコレクションに人気アーティストが参加</h3>
-          <p class="news-description">
-            ユニクロが発表した新作UTコレクションには、国内外の人気アーティスト10組がデザインを提供。限定販売となるため要チェックです。
-          </p>
-          <div class="news-footer">
-            <div class="news-tags">
-              <span class="news-tag" style="background-color: #45B7D1; color: white;">ユニクロ</span>
             </div>
           </div>
         </div>
