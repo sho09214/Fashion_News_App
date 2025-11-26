@@ -12,9 +12,9 @@
     <div class="header-content">
       <div class="logo">👗 ファッションニュース</div>
       <div class="user-menu">
-        <a href="#" class="btn btn-outline">マイタグ管理</a>
-        <a href="#" class="btn btn-outline">お気に入り</a>
-        <a href="#" class="btn btn-outline">マイページ</a>
+        <a th:href="@{/mytag}" class="btn btn-outline">マイタグ管理</a>
+        <a th:href="@{/favorite}" class="btn btn-outline">お気に入り</a>
+        <a th:href="@{/mypage}" class="btn btn-outline">マイページ</a>
       </div>
     </div>
   </div>
@@ -56,9 +56,8 @@
       </div>
     </aside>
 
-    <!-- メインコンテンツ - ニュース一覧 -->
+    <!-- ニュース一覧 -->
     <main class="news-grid">
-      <!-- ニュースカード 1 -->
       <article class="news-card" th:each="news : ${newsList}">
         <div class="news-title">
           <img src="https://via.placeholder.com/400x200/667eea/white?text=Fashion+News"
