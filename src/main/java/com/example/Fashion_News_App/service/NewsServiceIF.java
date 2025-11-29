@@ -1,14 +1,15 @@
 package com.example.Fashion_News_App.service;
 
+import com.example.Fashion_News_App.dto.web.MytagResponseDto;
 import com.example.Fashion_News_App.dto.web.NewsResponseDto;
-import com.example.Fashion_News_App.entity.NewsEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public interface TopServiceIF {
+public interface NewsServiceIF {
 
-    //全件取得
+    //ニュース全件取得
     List<NewsResponseDto> getAllNews();
+
 }

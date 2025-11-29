@@ -27,21 +27,9 @@
       <div class="filter-section">
         <div class="filter-title">マイタグでフィルター</div>
         <div class="tag-list">
-          <div class="tag-item">
+          <div class="tag-item" th:each="mytag : ${mytagList}">
             <div class="tag-color" style="background-color: #FF6B6B;"></div>
             <span class="tag-name">春コート</span>
-          </div>
-          <div class="tag-item">
-            <div class="tag-color" style="background-color: #4ECDC4;"></div>
-            <span class="tag-name">トレンドカラー</span>
-          </div>
-          <div class="tag-item">
-            <div class="tag-color" style="background-color: #45B7D1;"></div>
-            <span class="tag-name">ユニクロ</span>
-          </div>
-          <div class="tag-item">
-            <div class="tag-color" style="background-color: #96CEB4;"></div>
-            <span class="tag-name">韓国ファッション</span>
           </div>
         </div>
       </div>
