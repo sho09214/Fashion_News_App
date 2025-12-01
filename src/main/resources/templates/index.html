@@ -29,7 +29,7 @@
         <div class="tag-list">
           <div class="tag-item" th:each="mytag : ${mytagList}">
             <div class="tag-color" style="background-color: #FF6B6B;"></div>
-            <span class="tag-name">春コート</span>
+            <span class="tag-name" th:text="${mytag.tagName}"></span>
           </div>
         </div>
       </div>
