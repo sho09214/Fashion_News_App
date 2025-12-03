@@ -28,6 +28,10 @@ public class TopController {
         //マイタグ取得
         List<MytagResponseDto> mytagResponseDtoList = mytagServiceIF.getAllMytags();
 
+        //ニュースに紐づくマイタグ取得
+
+//        将来的に画面単位でのControllerは不要になるため、部品単位(News,Mytagなど)のAPIを実装するべき
+
         //ニュース、マイタグ有無チェック
         if (newsResponseDtoList != null) {
             model.addAttribute("newsList", newsResponseDtoList);
