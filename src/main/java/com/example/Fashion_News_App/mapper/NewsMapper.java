@@ -6,6 +6,8 @@ import com.example.Fashion_News_App.entity.NewsEntity;
 import org.springframework.stereotype.Component;
 
 import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class NewsMapper {
@@ -21,6 +23,12 @@ public class NewsMapper {
         dto.setPublishedAt(entity.getPublishedAt());
         dto.setCategory(entity.getCategory());
 
+        //紐づくMytagを生成
+        List<String> tagNames = entity.getNewsMytagMappingEntitys().stream()
+                .map(mapping -> mapping.getMytag().getTagName())
+                .collect(Collectors.toList());
+        dto.setMyTags(tagNames);
+
         return dto;
     }
 
@@ -33,6 +41,9 @@ public class NewsMapper {
         newsResponseDto.setImageUrl(businessDto.getUrlToImage());
         newsResponseDto.setSourceName(businessDto.getSourceName());
         newsResponseDto.setCategory(businessDto.getCategory());
+
+        //Mytagを設定
+        newsResponseDto.setMyTags(businessDto.getMyTags());
 
         //to日付フォーマット変換
         if (businessDto.getPublishedAt() != null) {

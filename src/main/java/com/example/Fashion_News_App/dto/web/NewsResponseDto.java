@@ -2,6 +2,8 @@ package com.example.Fashion_News_App.dto.web;
 
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class NewsResponseDto {
 
@@ -18,5 +20,8 @@ public class NewsResponseDto {
     public boolean getHasImage() {
         return imageUrl != null && !imageUrl.trim().isEmpty();
     }
+
+    //紐づくMytag一覧
+    private List<String> myTags;
 
 }

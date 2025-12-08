@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "news")
@@ -25,4 +27,8 @@ public class NewsEntity {
     private String category;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+
+    // News → 中間テーブル
+    @OneToMany(mappedBy = "news")
+    private List<NewsMytagMappingEntity> newsMytagMappingEntitys = new ArrayList<>();
 }
