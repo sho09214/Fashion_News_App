@@ -15,10 +15,10 @@ public class NewsMytagMappingEntity {
     //mapping → News
     @ManyToOne
     @JoinColumn(name = "news_id")
-    private NewsEntity news;
+    private NewsEntity newsEntity;
 
     //mapping → Mytag
     @ManyToOne
     @JoinColumn(name = "mytag_id")
-    private MytagEntity mytag;
+    private MytagEntity myTagEntity;
 }

@@ -25,7 +25,7 @@ public class NewsMapper {
 
         //紐づくMytagを生成
         List<String> tagNames = entity.getNewsMytagMappingEntitys().stream()
-                .map(mapping -> mapping.getMytag().getTagName())
+                .map(mapping -> mapping.getMyTagEntity().getTagName())
                 .collect(Collectors.toList());
         dto.setMyTags(tagNames);
 
