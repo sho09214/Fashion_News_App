@@ -29,6 +29,6 @@ public class NewsEntity {
     private LocalDateTime updatedAt;
 
     // News → 中間テーブル
-    @OneToMany(mappedBy = "news")
+    @OneToMany(mappedBy = "newsEntity")
     private List<NewsMytagMappingEntity> newsMytagMappingEntitys = new ArrayList<>();
 }
