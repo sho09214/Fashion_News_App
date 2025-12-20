@@ -1,9 +1,13 @@
 package com.example.Fashion_News_App.service;
 
-import com.example.Fashion_News_App.dto.business.UserBusinessDto;
-import com.example.Fashion_News_App.dto.web.UserResponseDto;
+import com.example.Fashion_News_App.dto.business.UserLoginBusinessDto;
+import com.example.Fashion_News_App.dto.business.UserRegisterBusinessDto;
+import com.example.Fashion_News_App.dto.web.UserLoginResponseDto;
+import com.example.Fashion_News_App.dto.web.UserRegisterResponseDto;
 
 public interface UserServiceIF {
 
-    UserResponseDto register(UserBusinessDto businessDto);
+    UserRegisterResponseDto register(UserRegisterBusinessDto businessDto);
+
+    UserLoginResponseDto login(UserLoginBusinessDto businessDto);
 }

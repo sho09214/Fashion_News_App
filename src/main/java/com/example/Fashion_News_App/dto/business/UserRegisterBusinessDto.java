@@ -5,13 +5,13 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 @Data
-public class UserBusinessDto {
+public class UserRegisterBusinessDto {
 
     private Long id;
 
     private String email;
     private String loginId;
-    private String passwordHash;
+    private String password;
     private String name;
     private Boolean isActive = true;
     private LocalDateTime lastLoginAt;
