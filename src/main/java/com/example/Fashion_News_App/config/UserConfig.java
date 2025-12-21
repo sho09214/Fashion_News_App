@@ -1,4 +1,4 @@
-package com.example.Fashion_News_App.dto.Config;
+package com.example.Fashion_News_App.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

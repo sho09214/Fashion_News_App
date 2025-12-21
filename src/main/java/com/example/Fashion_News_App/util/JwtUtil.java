@@ -1,4 +1,4 @@
-package com.example.Fashion_News_App.Util;
+package com.example.Fashion_News_App.util;
 
 
 import com.example.Fashion_News_App.entity.UserEntity;
@@ -9,7 +9,6 @@ import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Date;
 
