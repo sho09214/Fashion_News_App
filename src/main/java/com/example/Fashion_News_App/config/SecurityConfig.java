@@ -1,6 +1,7 @@
 package com.example.Fashion_News_App.config;
 
 import com.example.Fashion_News_App.security.JwtAuthenticationFilter;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -34,6 +35,14 @@ public class SecurityConfig {
                         // それ以外は認証必須
                         .anyRequest().authenticated()
                 )
+
+                //未認証は403を返す
+                .exceptionHandling(ex -> ex
+                        .authenticationEntryPoint((request, response, authException) -> {
+                            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                        })
+                )
+
                 // JWTフィルターを組み込む
                 .addFilterBefore(
                         jwtAuthenticationFilter,

@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
@@ -28,12 +29,21 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             FilterChain filterChain
     ) throws ServletException, IOException {
 
+        String path = request.getRequestURI();
+
+        // ★ ログイン・登録APIは JWTチェックしない
+        if (path.startsWith("/api/user/login")
+                || path.startsWith("/api/user/register")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         // ① Authorization ヘッダー取得
         String authHeader = request.getHeader("Authorization");
 
         // ② Bearer トークンでなければスルー
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-            filterChain.doFilter(request, response);
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
             return;
         }
 
@@ -52,15 +62,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                             Collections.emptyList()
                     );
 
-            authentication.setDetails(
-                    new WebAuthenticationDetailsSource().buildDetails(request)
-            );
-
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
         } catch (Exception e) {
-            // JWT不正・期限切れなど → 認証しない
-            SecurityContextHolder.clearContext();
+            // JWT不正・期限切れなど → 403レスポンス
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            return;
         }
 
         filterChain.doFilter(request, response);
