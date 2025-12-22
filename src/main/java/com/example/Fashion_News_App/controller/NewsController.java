@@ -16,6 +16,7 @@ public class NewsController {
 
     private final NewsServiceIF newsServiceIF;
 
+    //ニュース全件取得
     @GetMapping
     public List<NewsResponseDto> getAllNews() {
         return newsServiceIF.getAllNews();

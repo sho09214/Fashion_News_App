@@ -8,19 +8,15 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "favorite_news")
 @Data
-public class FavoriteNewsEntiry {
+public class FavoriteNewsEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-//    @ManyToOne
-//    @JoinColumn(name = "user_id", nullable = false)
-//    private UserEntiry userEntiry;
+    private Long userId;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private NewsEntity newsEntity;
+    private Long newsId;
 
     private LocalDateTime createdAt;
 }

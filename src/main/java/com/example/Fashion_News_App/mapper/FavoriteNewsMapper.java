@@ -2,7 +2,7 @@ package com.example.Fashion_News_App.mapper;
 
 import com.example.Fashion_News_App.dto.business.FavoriteNewsBusinessDto;
 import com.example.Fashion_News_App.dto.web.FavoriteNewsResponseDto;
-import com.example.Fashion_News_App.entity.FavoriteNewsEntiry;
+import com.example.Fashion_News_App.entity.FavoriteNewsEntity;
 import org.springframework.stereotype.Component;
 
 import java.time.format.DateTimeFormatter;
@@ -10,11 +10,11 @@ import java.time.format.DateTimeFormatter;
 @Component
 public class FavoriteNewsMapper {
 
-    public FavoriteNewsBusinessDto toBusinessDto(FavoriteNewsEntiry entity) {
+    public FavoriteNewsBusinessDto toBusinessDto(FavoriteNewsEntity entity) {
         FavoriteNewsBusinessDto dto = new FavoriteNewsBusinessDto();
         dto.setId(entity.getId());
-//        dto.setUserId(entity.getUser().getId());
-        dto.setNewsId(entity.getNewsEntity().getId());
+        dto.setUserId(entity.getUserId());
+        dto.setNewsId(entity.getNewsId());
         dto.setCreatedAt(entity.getCreatedAt());
         return dto;
     }
