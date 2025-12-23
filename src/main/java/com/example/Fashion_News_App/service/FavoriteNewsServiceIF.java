@@ -7,4 +7,7 @@ public interface FavoriteNewsServiceIF {
     //お気に入り登録
     void addFavorite(Long userId, Long newsId);
 
+    //お気に入り登録解除
+    void deleteFavorite(Long userId, Long newsId);
+
 }

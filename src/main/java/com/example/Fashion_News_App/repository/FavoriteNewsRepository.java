@@ -5,6 +5,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface FavoriteNewsRepository extends JpaRepository<FavoriteNewsEntity, Long> {
 
-//    すでにお気に入り登録か判定
+    //すでにお気に入り登録か判定
     boolean existsByUserIdAndNewsId(Long userId, Long newsId);
+
+    //お気に入り登録解除
+    void deleteByUserIdAndNewsId(Long userId, Long newsId);
 }
