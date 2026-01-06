@@ -1,6 +1,10 @@
 package com.example.Fashion_News_App.service;
 
 import com.example.Fashion_News_App.dto.web.FavoriteNewsResponseDto;
+import com.example.Fashion_News_App.dto.web.NewsResponseDto;
+import com.example.Fashion_News_App.entity.NewsEntity;
+
+import java.util.List;
 
 public interface FavoriteNewsServiceIF {
 
@@ -9,5 +13,8 @@ public interface FavoriteNewsServiceIF {
 
     //お気に入り登録解除
     void deleteFavorite(Long userId, Long newsId);
+
+    //お気に入りニュース取得
+    List<NewsResponseDto> getFavoriteNews(Long userId);
 
 }

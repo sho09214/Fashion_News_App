@@ -1,17 +1,21 @@
 package com.example.Fashion_News_App.service;
+import com.example.Fashion_News_App.dto.web.NewsResponseDto;
 import com.example.Fashion_News_App.entity.FavoriteNewsEntity;
+import com.example.Fashion_News_App.mapper.NewsMapper;
 import com.example.Fashion_News_App.repository.FavoriteNewsRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class FavoriteNewsServiceImpl implements  FavoriteNewsServiceIF{
 
     private final FavoriteNewsRepository favoriteNewsRepository;
+    private final NewsMapper newsMapper;
 
     //お気に入り登録
     @Override
@@ -41,5 +45,15 @@ public class FavoriteNewsServiceImpl implements  FavoriteNewsServiceIF{
         }
 
         favoriteNewsRepository.deleteByUserIdAndNewsId(userId, newsId);
+    }
+
+    //お気に入りニュース取得
+    @Override
+    public List<NewsResponseDto> getFavoriteNews(Long userId) {
+        return favoriteNewsRepository.findFavoriteNewsByUserId(userId)
+                .stream()
+                .map(newsMapper::toBusinessDto)
+                .map(newsMapper::toResponseDto)
+                .toList();
     }
 }
