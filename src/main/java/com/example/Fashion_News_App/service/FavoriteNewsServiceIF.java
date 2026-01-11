@@ -1,8 +1,6 @@
 package com.example.Fashion_News_App.service;
 
-import com.example.Fashion_News_App.dto.web.FavoriteNewsResponseDto;
 import com.example.Fashion_News_App.dto.web.NewsResponseDto;
-import com.example.Fashion_News_App.entity.NewsEntity;
 
 import java.util.List;
 

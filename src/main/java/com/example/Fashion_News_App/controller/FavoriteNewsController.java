@@ -1,6 +1,5 @@
 package com.example.Fashion_News_App.controller;
 
-import com.example.Fashion_News_App.dto.business.FavoriteNewsBusinessDto;
 import com.example.Fashion_News_App.dto.web.NewsResponseDto;
 import com.example.Fashion_News_App.service.FavoriteNewsServiceIF;
 import lombok.RequiredArgsConstructor;

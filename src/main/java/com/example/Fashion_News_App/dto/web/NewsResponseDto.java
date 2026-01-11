@@ -24,4 +24,7 @@ public class NewsResponseDto {
     //紐づくMytag一覧
     private List<String> myTags;
 
+    //お気に入りニュースか
+    private boolean isFavorite;
+
 }

@@ -16,7 +16,7 @@ public interface FavoriteNewsRepository extends JpaRepository<FavoriteNewsEntity
     //お気に入り登録解除
     void deleteByUserIdAndNewsId(Long userId, Long newsId);
 
-    //お気に入りニュース取得
+    //ユーザーのお気に入りニュース取得
     @Query("""
             SELECT n
             FROM NewsEntity n
@@ -26,4 +26,12 @@ public interface FavoriteNewsRepository extends JpaRepository<FavoriteNewsEntity
             ORDER BY f.createdAt DESC
             """)
     List<NewsEntity> findFavoriteNewsByUserId(@Param("userId") Long userId);
+
+    //ログインユーザーのお気に入りニュースのnewsIdを取得
+    @Query("""
+            SELECT f.newsId
+            FROM FavoriteNewsEntity f
+            WHERE f.userId = :userId
+            """)
+    List<Long> findFavoritreNewsIds(@Param("userId") Long userId);
 }

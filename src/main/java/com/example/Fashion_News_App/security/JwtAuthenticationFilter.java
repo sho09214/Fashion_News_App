@@ -29,32 +29,19 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             FilterChain filterChain
     ) throws ServletException, IOException {
 
-        String path = request.getRequestURI();
+        String authHeader = request.getHeader("Authorization");
 
-        // ★ ログイン・登録APIは JWTチェックしない
-        if (path.startsWith("/api/user/login")
-                || path.startsWith("/api/user/register")) {
+        // ★ JWT が無ければ何もしない（未ログイン扱い）
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;
         }
 
-        // ① Authorization ヘッダー取得
-        String authHeader = request.getHeader("Authorization");
-
-        // ② Bearer トークンでなければスルー
-        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-            return;
-        }
-
-        // ③ JWT部分だけ取り出す
         String token = authHeader.substring(7);
 
         try {
-            // ④ JWTから userId を取得
             Long userId = jwtUtil.getUserId(token);
 
-            // ⑤ Spring Security に「ログイン中」と伝える
             UsernamePasswordAuthenticationToken authentication =
                     new UsernamePasswordAuthenticationToken(
                             userId,
@@ -65,7 +52,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
         } catch (Exception e) {
-            // JWT不正・期限切れなど → 403レスポンス
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
             return;
         }

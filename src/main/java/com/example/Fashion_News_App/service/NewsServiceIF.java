@@ -10,6 +10,6 @@ import java.util.List;
 public interface NewsServiceIF {
 
     //ニュース全件取得
-    List<NewsResponseDto> getAllNews();
+    List<NewsResponseDto> getAllNews(Long userId);
 
 }
