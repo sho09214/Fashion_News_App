@@ -31,6 +31,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         String authHeader = request.getHeader("Authorization");
 
+
         // ★ JWT が無ければ何もしない（未ログイン扱い）
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
@@ -41,6 +42,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         try {
             Long userId = jwtUtil.getUserId(token);
+
+            System.out.println("★Authorization = " + authHeader);
+            System.out.println("★Authorization = " + userId);
 
             UsernamePasswordAuthenticationToken authentication =
                     new UsernamePasswordAuthenticationToken(

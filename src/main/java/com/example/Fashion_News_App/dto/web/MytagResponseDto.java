@@ -14,4 +14,15 @@ public class MytagResponseDto {
     private int displayOrder;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+
+    public MytagResponseDto(Long id, String tagName, String color, int displayOrder) {
+        this.id = id;
+        this.tagName = tagName;
+        this.color = color;
+        this.displayOrder = displayOrder;
+    }
+
+    public MytagResponseDto() {
+
+    }
 }

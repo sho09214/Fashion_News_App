@@ -25,7 +25,7 @@ public class FavoriteNewsController {
         Long userId = (Long) authentication.getPrincipal();
         favoriteNewsServiceIF.addFavorite(userId, newsId);
 
-        return ResponseEntity.ok().build(); //204レスポンス
+        return ResponseEntity.noContent().build(); //204レスポンス
     }
 
     //お気に入り登録解除
@@ -37,7 +37,7 @@ public class FavoriteNewsController {
         Long userId = (Long) authentication.getPrincipal();
         favoriteNewsServiceIF.deleteFavorite(userId, newsId);
 
-        return ResponseEntity.ok().build(); //204レスポンス
+        return ResponseEntity.noContent().build(); //204レスポンス
     }
 
     //お気に入りニュース一覧取得
