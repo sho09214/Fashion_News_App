@@ -1,5 +1,6 @@
 package com.example.Fashion_News_App.service;
 
+import com.example.Fashion_News_App.dto.MytagCreateDto;
 import com.example.Fashion_News_App.dto.business.MytagBusinessDto;
 import com.example.Fashion_News_App.dto.web.MytagResponseDto;
 import com.example.Fashion_News_App.entity.MytagEntity;
@@ -29,19 +30,21 @@ public class MytagServiceImpl implements MytagServiceIF{
                 .collect(Collectors.toList());
     }
 
+    //マイタグ追加
     @Override
-    public void create(Long userId, MytagBusinessDto businessDto) {
+    public void create(Long userId, MytagCreateDto mytagCreateDto) {
         MytagEntity mytagEntity = new MytagEntity();
         mytagEntity.setUserId(userId);
-        mytagEntity.setTagName(businessDto.getTagName());
-        mytagEntity.setColor(businessDto.getColor());
-        mytagEntity.setDisplayOrder(businessDto.getDisplayOrder());
+        mytagEntity.setTagName(mytagCreateDto.getTagName());
+        mytagEntity.setColor(mytagCreateDto.getColor());
+        mytagEntity.setDisplayOrder(mytagCreateDto.getDisplayOrder());
         mytagEntity.setCreatedAt(LocalDateTime.now());
         mytagEntity.setUpdatedAt(LocalDateTime.now());
 
         mytagRepository.save(mytagEntity);
     }
 
+    //マイタグ削除
     @Override
     public void delete(Long userId, Long mytagId) {
         MytagEntity mytagEntity = mytagRepository

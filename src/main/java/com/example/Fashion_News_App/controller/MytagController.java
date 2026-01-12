@@ -1,5 +1,6 @@
 package com.example.Fashion_News_App.controller;
 
+import com.example.Fashion_News_App.dto.MytagCreateDto;
 import com.example.Fashion_News_App.dto.business.MytagBusinessDto;
 import com.example.Fashion_News_App.dto.web.MytagResponseDto;
 import com.example.Fashion_News_App.service.MytagServiceIF;
@@ -21,7 +22,7 @@ public class MytagController {
     //マイタグ追加
     @PostMapping("/add")
     public ResponseEntity<Void> create(
-            @RequestBody MytagBusinessDto request,
+            @RequestBody MytagCreateDto request,
             Authentication authentication
             ) {
         Long userId = (Long) authentication.getPrincipal();
