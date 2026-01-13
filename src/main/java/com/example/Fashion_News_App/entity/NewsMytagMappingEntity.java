@@ -12,6 +12,7 @@ public class NewsMytagMappingEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
     //mapping → News
     @ManyToOne
     @JoinColumn(name = "news_id")
@@ -21,4 +22,6 @@ public class NewsMytagMappingEntity {
     @ManyToOne
     @JoinColumn(name = "mytag_id")
     private MytagEntity myTagEntity;
+
+    private Long userId;
 }

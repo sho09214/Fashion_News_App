@@ -12,4 +12,6 @@ public interface NewsServiceIF {
     //ニュース全件取得
     List<NewsResponseDto> getAllNews(Long userId);
 
+    //ログインユーザーのマイタグに紐づくニュース一覧
+    List<NewsResponseDto> getNewsByUserMytags(Long userId);
 }
