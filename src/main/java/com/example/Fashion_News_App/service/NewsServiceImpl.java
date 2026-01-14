@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -56,11 +57,12 @@ public class NewsServiceImpl implements NewsServiceIF {
 
     }
 
+    //ログインユーザーのマイタグに紐づくニュース一覧
     @Override
     public List<NewsResponseDto> getNewsByUserMytags(Long userId) {
 
         //ユーザーのマイタグに紐づくニュース取得
-        List<NewsEntity> newsList = newsMytagRepository.findNewsByUserId(userId);
+        List<NewsEntity> newsList = newsMytagRepository.findNewsByUserIdOrderByMinTagOrder(userId);
 
         //返却用NewsResponseDto
         List<NewsResponseDto> result = new ArrayList<>();
@@ -71,18 +73,26 @@ public class NewsServiceImpl implements NewsServiceIF {
             responseDto.setTitle(news.getTitle());
             responseDto.setDescription(news.getDescription());
             responseDto.setUrl(news.getUrl());
-//            responseDto.setUrlToImage(news.getUrlToImage());
-            responseDto.setPublishedAt(String.valueOf(news.getPublishedAt()));
+            responseDto.setImageUrl(news.getUrlToImage());
+            responseDto.setSourceName(news.getSourceName());
+            responseDto.setCategory(news.getCategory());
 
             //このニュース×ログインユーザーのマイタグ
-            List<MytagResponseDto> mytags =
+            List<String> mytags =
                     newsMytagRepository.findByNewsIdAndUserId(news.getId(), userId)
                             .stream()
                             .map(NewsMytagMappingEntity::getMyTagEntity)
-                            .map(MytagResponseDto::from)
+                            .map(mytag -> mytag.getTagName())
                             .toList();
 
             responseDto.setMyTags(mytags);
+
+            //to日付フォーマット変換
+            if (news.getPublishedAt() != null) {
+                String formattedPublishedAt = news.getPublishedAt()
+                        .format(DateTimeFormatter.ofPattern("yyyy年MM年dd日"));
+                responseDto.setPublishedAt(formattedPublishedAt);
+            }
             result.add(responseDto);
         }
 

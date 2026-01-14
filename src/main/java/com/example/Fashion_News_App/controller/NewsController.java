@@ -28,4 +28,12 @@ public class NewsController {
 
         return newsServiceIF.getAllNews(userId);
     }
+
+    //ログインユーザーのマイタグに紐づくニュース一覧
+    @GetMapping("/mytags")
+    public List<NewsResponseDto> getNewsByUserMytags(Authentication authentication) {
+        Long userId = (Long) authentication.getPrincipal();
+
+        return newsServiceIF.getNewsByUserMytags(userId);
+    }
 }

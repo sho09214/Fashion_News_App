@@ -1,5 +1,6 @@
 package com.example.Fashion_News_App.dto.web;
 
+import com.example.Fashion_News_App.entity.MytagEntity;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -15,11 +16,13 @@ public class MytagResponseDto {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    public MytagResponseDto(Long id, String tagName, String color, int displayOrder) {
-        this.id = id;
-        this.tagName = tagName;
-        this.color = color;
-        this.displayOrder = displayOrder;
+    public static MytagResponseDto from(MytagEntity entity) {
+        MytagResponseDto responseDto = new MytagResponseDto();
+        responseDto.setId(entity.getId());
+        responseDto.setTagName(entity.getTagName());
+        responseDto.setColor(entity.getColor());
+        responseDto.setDisplayOrder(entity.getDisplayOrder());
+        return responseDto;
     }
 
     public MytagResponseDto() {

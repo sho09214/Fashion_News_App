@@ -13,12 +13,13 @@ public interface NewsMytagRepository extends JpaRepository<NewsMytagMappingEntit
 
     // ログインユーザーのマイタグに紐づくニュース一覧
     @Query("""
-        SELECT DISTINCT m.newsEntity
+        SELECT m.newsEntity
         FROM NewsMytagMappingEntity m
-        WHERE m.userId = :userId
-        ORDER BY m.newsEntity.publishedAt DESC
+        WHERE m.myTagEntity.userId = :userId
+        GROUP BY m.newsEntity
+        ORDER BY MIN(m.myTagEntity.displayOrder) ASC
     """)
-    List<NewsEntity> findNewsByUserId(@Param("userId") Long userId);
+    List<NewsEntity> findNewsByUserIdOrderByMinTagOrder(@Param("userId") Long userId);
 
     //特定のニュース × ログインユーザーのマイタグ
     @Query("""
