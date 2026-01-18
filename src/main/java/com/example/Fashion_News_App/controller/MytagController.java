@@ -1,6 +1,7 @@
 package com.example.Fashion_News_App.controller;
 
 import com.example.Fashion_News_App.dto.MytagCreateDto;
+import com.example.Fashion_News_App.dto.MytagDisplayOrderUpdateDto;
 import com.example.Fashion_News_App.dto.MytagUpdateDto;
 import com.example.Fashion_News_App.dto.business.MytagBusinessDto;
 import com.example.Fashion_News_App.dto.web.MytagListResponseDto;
@@ -29,6 +30,15 @@ public class MytagController {
     }
 
     //マイタグ一覧変更(並び順)
+    @PutMapping("/display-order")
+    public ResponseEntity<Void> updateDisplayOrder(
+            @RequestBody List<MytagDisplayOrderUpdateDto> mytagDisplayOrderUpdateDto,
+            Authentication authentication
+            ){
+        Long userId = (Long) authentication.getPrincipal();
+        mytagServiceIF.updateDisplayOrder(userId, mytagDisplayOrderUpdateDto);
+        return ResponseEntity.noContent().build(); //204レスポンス
+    }
 
     //マイタグ追加
     @PostMapping("/add")

@@ -1,6 +1,7 @@
 package com.example.Fashion_News_App.service;
 
 import com.example.Fashion_News_App.dto.MytagCreateDto;
+import com.example.Fashion_News_App.dto.MytagDisplayOrderUpdateDto;
 import com.example.Fashion_News_App.dto.MytagUpdateDto;
 import com.example.Fashion_News_App.dto.web.MytagListResponseDto;
 import com.example.Fashion_News_App.entity.MytagEntity;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -29,6 +31,30 @@ public class MytagServiceImpl implements MytagServiceIF{
             throw new RuntimeException("マイタグが見つかりません");
         }
         return mytagListResponseDto;
+    }
+
+    //マイタグ一覧変更(並び順)
+    @Transactional
+    @Override
+    public void updateDisplayOrder(Long userId, List<MytagDisplayOrderUpdateDto> mytagDisplayOrderUpdateDto) {
+        //ログインユーザのマイタグを全件取得
+        List<MytagEntity> mytagEntities = mytagRepository.findByUserId(userId);
+
+        //リクエストをMapに変換
+        Map<Long, Integer> orderMap =
+                mytagDisplayOrderUpdateDto.stream()
+                        .collect(Collectors.toMap(
+                                MytagDisplayOrderUpdateDto::getId,
+                                MytagDisplayOrderUpdateDto::getDisplayOrder
+                        ));
+
+        //DisplayOrderを更新
+        for (MytagEntity mytagEntity : mytagEntities) {
+            Integer newDisplayOrder = orderMap.get(mytagEntity.getId());
+            if (newDisplayOrder != null) {
+                mytagEntity.setDisplayOrder(newDisplayOrder);
+            }
+        }
     }
 
     //マイタグ追加
