@@ -24,4 +24,6 @@ public interface MytagRepository extends JpaRepository<MytagEntity, Long> {
             ORDER BY m.displayOrder ASC
             """)
     List<MytagListResponseDto> findMytagsByUserId(@Param("userId") Long userId);
+
+    void deleteByUserId(Long userId);
 }

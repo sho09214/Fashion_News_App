@@ -22,4 +22,6 @@ public class UserEntity {
     private LocalDateTime lastLoginAt;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+    private boolean deleted;
+    private LocalDateTime deletedAt;
 }
