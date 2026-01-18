@@ -18,14 +18,20 @@ public class UserController {
 
     private final UserServiceIF userServiceIF;
 
+    //新規会員登録
     @PostMapping("/register")
     public UserRegisterResponseDto register(@RequestBody UserRegisterBusinessDto businessDto) {
         return userServiceIF.register(businessDto);
     }
 
+    //ログイン
     @PostMapping("/login")
     public UserLoginResponseDto login(@RequestBody UserLoginBusinessDto businessDto) {
         return userServiceIF.login(businessDto);
     }
+
+    //退会
+
+    //パスワード変更
 
 }

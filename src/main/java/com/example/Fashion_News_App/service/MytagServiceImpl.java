@@ -1,11 +1,13 @@
 package com.example.Fashion_News_App.service;
 
 import com.example.Fashion_News_App.dto.MytagCreateDto;
+import com.example.Fashion_News_App.dto.MytagUpdateDto;
 import com.example.Fashion_News_App.dto.business.MytagBusinessDto;
 import com.example.Fashion_News_App.dto.web.MytagResponseDto;
 import com.example.Fashion_News_App.entity.MytagEntity;
 import com.example.Fashion_News_App.mapper.MytagMapper;
 import com.example.Fashion_News_App.repository.MytagRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,7 @@ public class MytagServiceImpl implements MytagServiceIF{
     private final MytagRepository mytagRepository;
     private final MytagMapper mytagMapper;
 
+    //マイタグ一覧取得
     @Override
     public List<MytagResponseDto> getAllMytags() {
         //Entity → Business Dto → Response Dto
@@ -42,6 +45,20 @@ public class MytagServiceImpl implements MytagServiceIF{
         mytagEntity.setUpdatedAt(LocalDateTime.now());
 
         mytagRepository.save(mytagEntity);
+    }
+
+    //マイタグ変更
+    @Transactional
+    @Override
+    public void update(Long userId, MytagUpdateDto mytagUpdateDto) {
+        MytagEntity mytagEntity = mytagRepository
+                .findByIdAndUserId(mytagUpdateDto.getId(), userId)
+                .orElseThrow(() -> new RuntimeException("マイタグが見つかりません"));
+
+        mytagEntity.setTagName(mytagUpdateDto.getTagName());
+        mytagEntity.setColor(mytagUpdateDto.getColor());
+        mytagEntity.setUpdatedAt(LocalDateTime.now());
+
     }
 
     //マイタグ削除
