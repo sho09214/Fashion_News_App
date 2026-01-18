@@ -2,14 +2,12 @@ package com.example.Fashion_News_App.service;
 
 import com.example.Fashion_News_App.dto.MytagCreateDto;
 import com.example.Fashion_News_App.dto.MytagUpdateDto;
-import com.example.Fashion_News_App.dto.business.MytagBusinessDto;
-import com.example.Fashion_News_App.dto.web.MytagResponseDto;
+import com.example.Fashion_News_App.dto.web.MytagListResponseDto;
 import com.example.Fashion_News_App.entity.MytagEntity;
 import com.example.Fashion_News_App.mapper.MytagMapper;
 import com.example.Fashion_News_App.repository.MytagRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -25,12 +23,12 @@ public class MytagServiceImpl implements MytagServiceIF{
 
     //マイタグ一覧取得
     @Override
-    public List<MytagResponseDto> getAllMytags() {
-        //Entity → Business Dto → Response Dto
-        return mytagRepository.findAll().stream()
-                .map(mytagMapper::toBusinessDto)
-                .map(mytagMapper::toResponseDto)
-                .collect(Collectors.toList());
+    public List<MytagListResponseDto> getAllMytags(Long userId) {
+        List<MytagListResponseDto> mytagListResponseDto = mytagRepository.findMytagsByUserId(userId);
+        if (mytagListResponseDto == null) {
+            throw new RuntimeException("マイタグが見つかりません");
+        }
+        return mytagListResponseDto;
     }
 
     //マイタグ追加

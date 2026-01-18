@@ -3,6 +3,7 @@ package com.example.Fashion_News_App.controller;
 import com.example.Fashion_News_App.dto.MytagCreateDto;
 import com.example.Fashion_News_App.dto.MytagUpdateDto;
 import com.example.Fashion_News_App.dto.business.MytagBusinessDto;
+import com.example.Fashion_News_App.dto.web.MytagListResponseDto;
 import com.example.Fashion_News_App.dto.web.MytagResponseDto;
 import com.example.Fashion_News_App.service.MytagServiceIF;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +11,8 @@ import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/mytags")
@@ -19,6 +22,11 @@ public class MytagController {
     private final MytagServiceIF mytagServiceIF;
 
     //マイタグ一覧取得
+    @GetMapping
+    public List<MytagListResponseDto> getAllMytags(Authentication authentication) {
+        Long userId = (Long) authentication.getPrincipal();
+        return mytagServiceIF.getAllMytags(userId);
+    }
 
     //マイタグ一覧変更(並び順)
 
