@@ -43,9 +43,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         try {
             Long userId = jwtUtil.getUserId(token);
 
-            System.out.println("★Authorization = " + authHeader);
-            System.out.println("★Authorization = " + userId);
-
             UsernamePasswordAuthenticationToken authentication =
                     new UsernamePasswordAuthenticationToken(
                             userId,
@@ -56,6 +53,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
         } catch (Exception e) {
+            e.printStackTrace();
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
             return;
         }
