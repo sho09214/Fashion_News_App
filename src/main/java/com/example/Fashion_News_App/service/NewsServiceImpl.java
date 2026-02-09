@@ -1,9 +1,8 @@
 package com.example.Fashion_News_App.service;
 
 import com.example.Fashion_News_App.dto.business.NewsBusinessDto;
-import com.example.Fashion_News_App.dto.web.MytagResponseDto;
 import com.example.Fashion_News_App.dto.web.NewsResponseDto;
-import com.example.Fashion_News_App.entity.NewsEntity;
+import com.example.Fashion_News_App.entity.NewsViewEntity;
 import com.example.Fashion_News_App.entity.NewsMytagMappingEntity;
 import com.example.Fashion_News_App.mapper.MytagMapper;
 import com.example.Fashion_News_App.mapper.NewsMapper;
@@ -11,12 +10,10 @@ import com.example.Fashion_News_App.repository.FavoriteNewsRepository;
 import com.example.Fashion_News_App.repository.NewsMytagRepository;
 import com.example.Fashion_News_App.repository.NewsRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -32,7 +29,7 @@ public class NewsServiceImpl implements NewsServiceIF {
     @Override
     public List<NewsResponseDto> getAllNews(Long userId) {
 
-        List<NewsEntity> newsEntityList = newsRepository.findAll();
+        List<NewsViewEntity> newsViewEntityList = newsRepository.findAll();
 
         Set<Long> favoriteNewsIds;
 
@@ -44,7 +41,7 @@ public class NewsServiceImpl implements NewsServiceIF {
         }
 
         //Entity → Response DTO
-        return newsEntityList.stream()
+        return newsViewEntityList.stream()
                 .map(news -> {
                     NewsBusinessDto businessDto = newsMapper.toBusinessDto(news);
                     NewsResponseDto responseDto = newsMapper.toResponseDto(businessDto);
@@ -62,12 +59,12 @@ public class NewsServiceImpl implements NewsServiceIF {
     public List<NewsResponseDto> getNewsByUserMytags(Long userId) {
 
         //ユーザーのマイタグに紐づくニュース取得
-        List<NewsEntity> newsList = newsMytagRepository.findNewsByUserIdOrderByMinTagOrder(userId);
+        List<NewsViewEntity> newsList = newsMytagRepository.findNewsByUserIdOrderByMinTagOrder(userId);
 
         //返却用NewsResponseDto
         List<NewsResponseDto> result = new ArrayList<>();
 
-        for (NewsEntity news : newsList) {
+        for (NewsViewEntity news : newsList) {
             NewsResponseDto responseDto = new NewsResponseDto();
             responseDto.setId(news.getId());
             responseDto.setTitle(news.getTitle());

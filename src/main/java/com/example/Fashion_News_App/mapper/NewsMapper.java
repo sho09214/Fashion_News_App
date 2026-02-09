@@ -2,7 +2,7 @@ package com.example.Fashion_News_App.mapper;
 
 import com.example.Fashion_News_App.dto.business.NewsBusinessDto;
 import com.example.Fashion_News_App.dto.web.NewsResponseDto;
-import com.example.Fashion_News_App.entity.NewsEntity;
+import com.example.Fashion_News_App.entity.NewsViewEntity;
 import org.springframework.stereotype.Component;
 
 import java.time.format.DateTimeFormatter;
@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 @Component
 public class NewsMapper {
 
-    public NewsBusinessDto toBusinessDto(NewsEntity entity) {
+    public NewsBusinessDto toBusinessDto(NewsViewEntity entity) {
         NewsBusinessDto dto = new NewsBusinessDto();
         dto.setId(entity.getId());
         dto.setTitle(entity.getTitle());

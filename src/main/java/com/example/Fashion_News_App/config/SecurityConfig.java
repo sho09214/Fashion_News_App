@@ -29,7 +29,8 @@ public class SecurityConfig {
                         .requestMatchers(
                                 "/api/user/login",
                                 "/api/user/register",
-                                "/api/news/**"
+                                "/api/news/**",
+                                "api/admin/**"
                         ).permitAll()
 
                         // それ以外は認証必須

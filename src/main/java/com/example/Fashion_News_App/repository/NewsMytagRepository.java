@@ -1,7 +1,6 @@
 package com.example.Fashion_News_App.repository;
 
-import com.example.Fashion_News_App.entity.MytagEntity;
-import com.example.Fashion_News_App.entity.NewsEntity;
+import com.example.Fashion_News_App.entity.NewsViewEntity;
 import com.example.Fashion_News_App.entity.NewsMytagMappingEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -13,19 +12,19 @@ public interface NewsMytagRepository extends JpaRepository<NewsMytagMappingEntit
 
     // ログインユーザーのマイタグに紐づくニュース一覧
     @Query("""
-        SELECT m.newsEntity
+        SELECT m.newsViewEntity
         FROM NewsMytagMappingEntity m
         WHERE m.myTagEntity.userId = :userId
-        GROUP BY m.newsEntity
+        GROUP BY m.newsViewEntity
         ORDER BY MIN(m.myTagEntity.displayOrder) ASC
     """)
-    List<NewsEntity> findNewsByUserIdOrderByMinTagOrder(@Param("userId") Long userId);
+    List<NewsViewEntity> findNewsByUserIdOrderByMinTagOrder(@Param("userId") Long userId);
 
     //特定のニュース × ログインユーザーのマイタグ
     @Query("""
         SELECT m
         FROM NewsMytagMappingEntity m
-        WHERE m.newsEntity.id = :newsId
+        WHERE m.newsViewEntity.id = :newsId
           AND m.myTagEntity.userId = :userId
     """)
     List<NewsMytagMappingEntity> findByNewsIdAndUserId(
