@@ -19,19 +19,16 @@ public class RssAdminController {
     private final RssFetchServiceIF rssFetchServiceIF;
     private final RssSourceConfig rssSourceConfig;
 
-    @PostMapping("/fetch-rss")
+    @PostMapping("/fetch-all")
     public Map<String, RssFetchResultDto> fetchAll() throws Exception {
 
-        Map<String, String> sources = rssSourceConfig.getSources();
         Map<String, RssFetchResultDto> result = new HashMap<>();
-        System.out.println("RSS SOURCES = " + sources);
 
-        for (var entry : sources.entrySet()) {
-            String sourceName = entry.getKey();
-            String url = entry.getValue();
-
-            RssFetchResultDto dto = rssFetchServiceIF.fetchRss(sourceName, url);
-            result.put(sourceName, dto);
+        for (var entry : rssSourceConfig.getSources().entrySet()) {
+            result.put(
+                        entry.getKey(),
+                    rssFetchServiceIF.fetch(entry.getKey(), entry.getValue())
+                    );
             Thread.sleep(rssSourceConfig.getFetch().getDelayMs());
         }
 

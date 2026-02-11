@@ -21,8 +21,8 @@ public class NewsRawEntity {
     private String title;
 
     @Lob
-    @Column(columnDefinition = "LONGTEXT")
-    private String rawContent;
+    @Column(columnDefinition = "TEXT")
+    private String description;
 
     @Column(length = 1000)
     private String url;
@@ -40,5 +40,4 @@ public class NewsRawEntity {
     @Column(length = 64, unique = true)
     private String hash;
 
-    private LocalDateTime createdAt = LocalDateTime.now();
 }
