@@ -40,4 +40,7 @@ public class NewsRawEntity {
     @Column(length = 64, unique = true)
     private String hash;
 
+    @Column(name = "ai_status")
+    private String aiStatus;
+
 }

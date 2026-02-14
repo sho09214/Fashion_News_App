@@ -27,6 +27,7 @@ public class NewsViewEntity {
     private String category;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+    private String hash;
 
     // News → 中間テーブル
     @OneToMany(mappedBy = "newsViewEntity")
