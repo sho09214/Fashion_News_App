@@ -5,6 +5,7 @@ import com.example.Fashion_News_App.service.NewsServiceIF;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,10 +31,13 @@ public class NewsController {
     }
 
     //ログインユーザーのマイタグに紐づくニュース一覧
-    @GetMapping("/mytags")
-    public List<NewsResponseDto> getNewsByUserMytags(Authentication authentication) {
+    @GetMapping("/mytags/{tagName}")
+    public List<NewsResponseDto> getNewsByUserMytags(
+            Authentication authentication,
+            @PathVariable String tagName
+    ) {
         Long userId = (Long) authentication.getPrincipal();
 
-        return newsServiceIF.getNewsByUserMytags(userId);
+        return newsServiceIF.getNewsByUserMytags(userId, tagName);
     }
 }

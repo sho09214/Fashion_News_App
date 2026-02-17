@@ -12,6 +12,7 @@ import com.example.Fashion_News_App.repository.NewsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
@@ -56,44 +57,50 @@ public class NewsServiceImpl implements NewsServiceIF {
 
     //ログインユーザーのマイタグに紐づくニュース一覧
     @Override
-    public List<NewsResponseDto> getNewsByUserMytags(Long userId) {
+    public List<NewsResponseDto> getNewsByUserMytags(Long userId, String tagName) {
 
-        //ユーザーのマイタグに紐づくニュース取得
-        List<NewsViewEntity> newsList = newsMytagRepository.findNewsByUserIdOrderByMinTagOrder(userId);
+        //ユーザーが持っているマイタグのニュース取得
+        List<Object[]> rows = newsMytagRepository.findNewsWithTagsByUserIdAndTagName(userId, tagName);
 
-        //返却用NewsResponseDto
-        List<NewsResponseDto> result = new ArrayList<>();
+        Map<Long, NewsResponseDto> newsMap = new LinkedHashMap<>();
 
-        for (NewsViewEntity news : newsList) {
-            NewsResponseDto responseDto = new NewsResponseDto();
-            responseDto.setId(news.getId());
-            responseDto.setTitle(news.getTitle());
-            responseDto.setDescription(news.getDescription());
-            responseDto.setUrl(news.getUrl());
-            responseDto.setImageUrl(news.getUrlToImage());
-            responseDto.setSourceName(news.getSourceName());
-            responseDto.setCategory(news.getCategory());
+        for (Object[] row : rows) {
 
-            //このニュース×ログインユーザーのマイタグ
-            List<String> mytags =
-                    newsMytagRepository.findByNewsIdAndUserId(news.getId(), userId)
-                            .stream()
-                            .map(NewsMytagMappingEntity::getMyTagEntity)
-                            .map(mytag -> mytag.getTagName())
-                            .toList();
+            Long newsId = (Long) row[0];
 
-            responseDto.setMyTags(mytags);
+            NewsResponseDto dto = newsMap.get(newsId);
 
-            //to日付フォーマット変換
-            if (news.getPublishedAt() != null) {
-                String formattedPublishedAt = news.getPublishedAt()
-                        .format(DateTimeFormatter.ofPattern("yyyy年MM年dd日"));
-                responseDto.setPublishedAt(formattedPublishedAt);
+            if (dto == null) {
+
+                dto = new NewsResponseDto();
+
+                dto.setId(newsId);
+                dto.setTitle((String) row[1]);
+                dto.setDescription((String) row[2]);
+                dto.setUrl((String) row[3]);
+                dto.setImageUrl((String) row[4]);
+                dto.setSourceName((String) row[5]);
+                dto.setCategory((String) row[6]);
+
+                if (row[7] != null) {
+
+                    dto.setPublishedAt(
+                            ((LocalDateTime) row[7])
+                                    .format(DateTimeFormatter.ofPattern("yyyy年MM月dd日"))
+                    );
+
+                }
+
+                dto.setMyTags(new ArrayList<>());
+
+                newsMap.put(newsId, dto);
+
             }
-            result.add(responseDto);
+
+            dto.getMyTags().add((String) row[8]);
+
         }
 
-        return result;
+        return new ArrayList<>(newsMap.values());
     }
-
 }
