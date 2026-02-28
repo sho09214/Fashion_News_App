@@ -3,6 +3,7 @@ package com.example.Fashion_News_App.controller;
 import com.example.Fashion_News_App.dto.PasswordChangeDto;
 import com.example.Fashion_News_App.dto.business.UserLoginBusinessDto;
 import com.example.Fashion_News_App.dto.business.UserRegisterBusinessDto;
+import com.example.Fashion_News_App.dto.web.UserCurrentResponseDto;
 import com.example.Fashion_News_App.dto.web.UserLoginResponseDto;
 import com.example.Fashion_News_App.dto.web.UserRegisterResponseDto;
 import com.example.Fashion_News_App.service.UserServiceIF;
@@ -48,5 +49,13 @@ public class UserController {
         Long userId = (Long) authentication.getPrincipal();
         userServiceIF.changePassword(userId, passwordChangeDto);
         return ResponseEntity.noContent().build(); //204レスポンス;
+    }
+
+    //アカウント情報取得
+    @GetMapping("/me")
+    public UserCurrentResponseDto getCurrentUser(Authentication authentication) {
+        Long userId = (Long) authentication.getPrincipal();
+
+        return userServiceIF.getCurrentUser(userId);
     }
 }

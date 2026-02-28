@@ -1,6 +1,7 @@
 package com.example.Fashion_News_App.service;
 
 import com.example.Fashion_News_App.dto.PasswordChangeDto;
+import com.example.Fashion_News_App.dto.web.UserCurrentResponseDto;
 import com.example.Fashion_News_App.repository.MytagRepository;
 import com.example.Fashion_News_App.util.JwtUtil;
 import com.example.Fashion_News_App.dto.business.UserLoginBusinessDto;
@@ -11,6 +12,7 @@ import com.example.Fashion_News_App.entity.UserEntity;
 import com.example.Fashion_News_App.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -100,5 +102,17 @@ public class UserServiceImpl implements  UserServiceIF {
         //新パスワードをハッシュ化
         String encodedNewPassword = passwordEncoder.encode(passwordChangeDto.getNewPassword());
         userEntity.setPasswordHash(encodedNewPassword);
+    }
+
+    @Override
+    public UserCurrentResponseDto getCurrentUser(Long userId) {
+        UserEntity userEntity = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("ユーザーが見つかりませんでした"));
+
+        UserCurrentResponseDto userCurrentResponseDto = new UserCurrentResponseDto();
+        userCurrentResponseDto.setUserId(userId);
+        userCurrentResponseDto.setName(userEntity.getName());
+        userCurrentResponseDto.setEmail(userEntity.getEmail());
+
+        return userCurrentResponseDto;
     }
 }
