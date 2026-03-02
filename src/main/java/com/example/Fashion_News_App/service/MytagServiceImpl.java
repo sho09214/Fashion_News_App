@@ -83,6 +83,9 @@ public class MytagServiceImpl implements MytagServiceIF{
         mytagEntity.setColor(mytagUpdateDto.getColor());
         mytagEntity.setUpdatedAt(LocalDateTime.now());
 
+        // ★ 強制的にフラッシュ
+        mytagRepository.flush();
+
     }
 
     //マイタグ削除

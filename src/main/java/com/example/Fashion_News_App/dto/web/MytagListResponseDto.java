@@ -9,5 +9,6 @@ public class MytagListResponseDto {
 
     private Long id;
     private String tagName;
+    private String color;
     private int displayOrder;
 }

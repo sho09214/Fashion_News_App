@@ -18,11 +18,16 @@ public interface MytagRepository extends JpaRepository<MytagEntity, Long> {
     Optional<MytagEntity> findByIdAndUserId(Long id, Long userId);
 
     @Query("""
-            SELECT m.id, m.tagName, m.displayOrder
-            FROM MytagEntity m
-            WHERE m.userId = :userId
-            ORDER BY m.displayOrder ASC
-            """)
+        SELECT new com.example.Fashion_News_App.dto.web.MytagListResponseDto(
+            m.id, 
+            m.tagName, 
+            m.color,      
+            m.displayOrder
+        )
+        FROM MytagEntity m
+        WHERE m.userId = :userId
+        ORDER BY m.displayOrder ASC
+        """)
     List<MytagListResponseDto> findMytagsByUserId(@Param("userId") Long userId);
 
     void deleteByUserId(Long userId);
