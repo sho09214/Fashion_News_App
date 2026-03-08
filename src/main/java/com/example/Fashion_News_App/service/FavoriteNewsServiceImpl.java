@@ -54,6 +54,10 @@ public class FavoriteNewsServiceImpl implements  FavoriteNewsServiceIF{
                 .stream()
                 .map(newsMapper::toBusinessDto)
                 .map(newsMapper::toResponseDto)
+                .map(dto -> {
+                    dto.setFavorite(true);
+                    return dto;
+                })
                 .toList();
     }
 }

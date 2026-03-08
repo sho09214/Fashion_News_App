@@ -62,6 +62,9 @@ public class NewsServiceImpl implements NewsServiceIF {
         //ユーザーが持っているマイタグのニュース取得
         List<Object[]> rows = newsMytagRepository.findNewsWithTagsByUserIdAndTagName(userId, tagName);
 
+        // ★ お気に入りニュースIDを取得
+        Set<Long> favoriteNewsIds = new HashSet<>(favoriteNewsRepository.findFavoritreNewsIds(userId));
+
         Map<Long, NewsResponseDto> newsMap = new LinkedHashMap<>();
 
         for (Object[] row : rows) {
@@ -83,13 +86,14 @@ public class NewsServiceImpl implements NewsServiceIF {
                 dto.setCategory((String) row[6]);
 
                 if (row[7] != null) {
-
                     dto.setPublishedAt(
                             ((LocalDateTime) row[7])
                                     .format(DateTimeFormatter.ofPattern("yyyy年MM月dd日"))
                     );
-
                 }
+
+                // ★ お気に入り状態を設定
+                dto.setFavorite(favoriteNewsIds.contains(newsId));
 
                 dto.setMyTags(new ArrayList<>());
 
