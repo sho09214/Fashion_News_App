@@ -1,6 +1,7 @@
 package com.example.Fashion_News_App.service;
 
 import com.example.Fashion_News_App.dto.PasswordChangeDto;
+import com.example.Fashion_News_App.dto.PasswordResetDto;
 import com.example.Fashion_News_App.dto.web.UserCurrentResponseDto;
 import com.example.Fashion_News_App.repository.MytagRepository;
 import com.example.Fashion_News_App.util.JwtUtil;
@@ -101,6 +102,19 @@ public class UserServiceImpl implements  UserServiceIF {
 
         //新パスワードをハッシュ化
         String encodedNewPassword = passwordEncoder.encode(passwordChangeDto.getNewPassword());
+        userEntity.setPasswordHash(encodedNewPassword);
+    }
+
+    @Transactional
+    @Override
+    public void resetPassword(PasswordResetDto passwordResetDto) {
+        // メールアドレスでユーザーを検索
+        UserEntity userEntity = userRepository
+                .findByEmail(passwordResetDto.getEmail())
+                .orElseThrow(() -> new RuntimeException("ユーザーが見つかりません"));
+
+        // 新パスワードをハッシュ化
+        String encodedNewPassword = passwordEncoder.encode(passwordResetDto.getNewPassword());
         userEntity.setPasswordHash(encodedNewPassword);
     }
 

@@ -30,7 +30,8 @@ public class SecurityConfig {
                                 "/api/user/login",
                                 "/api/user/register",
                                 "/api/news/**",
-                                "api/admin/**"
+                                "/api/admin/**",
+                                "/api/auth/password/reset"
                         ).permitAll()
 
                         // それ以外は認証必須

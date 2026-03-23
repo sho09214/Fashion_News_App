@@ -1,6 +1,7 @@
 package com.example.Fashion_News_App.controller;
 
 import com.example.Fashion_News_App.dto.PasswordChangeDto;
+import com.example.Fashion_News_App.dto.PasswordResetDto;
 import com.example.Fashion_News_App.dto.business.UserLoginBusinessDto;
 import com.example.Fashion_News_App.dto.business.UserRegisterBusinessDto;
 import com.example.Fashion_News_App.dto.web.UserCurrentResponseDto;
@@ -49,6 +50,15 @@ public class UserController {
         Long userId = (Long) authentication.getPrincipal();
         userServiceIF.changePassword(userId, passwordChangeDto);
         return ResponseEntity.noContent().build(); //204レスポンス;
+    }
+
+    // パスワードリセット（現在のパスワード確認なし）
+    @PutMapping("/password/reset")
+    public ResponseEntity<Void> resetPassword(
+            @RequestBody PasswordResetDto passwordResetDto
+    ) {
+        userServiceIF.resetPassword(passwordResetDto);
+        return ResponseEntity.noContent().build();
     }
 
     //アカウント情報取得
