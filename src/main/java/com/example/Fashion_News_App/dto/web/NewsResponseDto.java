@@ -14,7 +14,7 @@ public class NewsResponseDto {
     private String imageUrl;
     private String sourceName;
     private String publishedAt;
-    private String category;
+    private String summary;
     private boolean hasImage;
 
     public boolean getHasImage() {

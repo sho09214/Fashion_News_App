@@ -1,7 +1,7 @@
 package com.example.Fashion_News_App.repository;
 
 import com.example.Fashion_News_App.entity.FavoriteNewsEntity;
-import com.example.Fashion_News_App.entity.NewsViewEntity;
+import com.example.Fashion_News_App.entity.NewsEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -21,13 +21,13 @@ public interface FavoriteNewsRepository extends JpaRepository<FavoriteNewsEntity
     //ユーザーのお気に入りニュース取得
     @Query("""
             SELECT n
-            FROM NewsViewEntity n
+            FROM NewsEntity n
             JOIN FavoriteNewsEntity f
                 ON n.id = f.newsId
             WHERE f.userId = :userId
             ORDER BY f.createdAt DESC
             """)
-    List<NewsViewEntity> findFavoriteNewsByUserId(@Param("userId") Long userId);
+    List<NewsEntity> findFavoriteNewsByUserId(@Param("userId") Long userId);
 
     //ログインユーザーのお気に入りニュースのnewsIdを取得
     @Query("""

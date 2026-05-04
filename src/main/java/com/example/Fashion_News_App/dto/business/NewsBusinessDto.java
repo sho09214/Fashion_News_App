@@ -15,7 +15,7 @@ public class NewsBusinessDto {
     private String urlToImage;
     private String sourceName;
     private LocalDateTime publishedAt;
-    private String category;
+    private String summary;
 
     //紐づくMytag一覧
     private List<String> myTags;

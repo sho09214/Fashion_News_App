@@ -2,8 +2,7 @@ package com.example.Fashion_News_App.service;
 
 import com.example.Fashion_News_App.dto.business.NewsBusinessDto;
 import com.example.Fashion_News_App.dto.web.NewsResponseDto;
-import com.example.Fashion_News_App.entity.NewsViewEntity;
-import com.example.Fashion_News_App.entity.NewsMytagMappingEntity;
+import com.example.Fashion_News_App.entity.NewsEntity;
 import com.example.Fashion_News_App.mapper.MytagMapper;
 import com.example.Fashion_News_App.mapper.NewsMapper;
 import com.example.Fashion_News_App.repository.FavoriteNewsRepository;
@@ -30,7 +29,7 @@ public class NewsServiceImpl implements NewsServiceIF {
     @Override
     public List<NewsResponseDto> getAllNews(Long userId) {
 
-        List<NewsViewEntity> newsViewEntityList = newsRepository.findAll();
+        List<NewsEntity> newsEntityList = newsRepository.findAll();
 
         Set<Long> favoriteNewsIds;
 
@@ -42,7 +41,7 @@ public class NewsServiceImpl implements NewsServiceIF {
         }
 
         //Entity → Response DTO
-        return newsViewEntityList.stream()
+        return newsEntityList.stream()
                 .map(news -> {
                     NewsBusinessDto businessDto = newsMapper.toBusinessDto(news);
                     NewsResponseDto responseDto = newsMapper.toResponseDto(businessDto);
@@ -83,7 +82,7 @@ public class NewsServiceImpl implements NewsServiceIF {
                 dto.setUrl((String) row[3]);
                 dto.setImageUrl((String) row[4]);
                 dto.setSourceName((String) row[5]);
-                dto.setCategory((String) row[6]);
+                dto.setSummary((String) row[6]);
 
                 if (row[7] != null) {
                     dto.setPublishedAt(

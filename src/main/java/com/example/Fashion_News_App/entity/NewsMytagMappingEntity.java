@@ -16,7 +16,7 @@ public class NewsMytagMappingEntity {
     //mapping → News
     @ManyToOne
     @JoinColumn(name = "news_id")
-    private NewsViewEntity newsViewEntity;
+    private NewsEntity newsEntity;
 
     //mapping → Mytag
     @ManyToOne

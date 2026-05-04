@@ -10,10 +10,9 @@ import java.util.List;
 @Entity
 @Table(name = "news")
 @Data
-public class NewsViewEntity {
+public class NewsEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String sourceId;
@@ -24,12 +23,12 @@ public class NewsViewEntity {
     private String url;
     private String urlToImage;
     private LocalDateTime publishedAt;
-    private String category;
+    private String summary;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private String hash;
 
     // News → 中間テーブル
-    @OneToMany(mappedBy = "newsViewEntity")
+    @OneToMany(mappedBy = "newsEntity")
     private List<NewsMytagMappingEntity> newsMytagMappingEntitys = new ArrayList<>();
 }
