@@ -55,6 +55,10 @@ public class RssFetchServiceImpl implements RssFetchServiceIF {
                 duplicate++;
                 continue;
             }
+
+            // ai_statusを"PENDING"に設定
+            e.setAiStatus("PENDING");
+
             newsRawRepository.save(e);
             saved++;
         }
