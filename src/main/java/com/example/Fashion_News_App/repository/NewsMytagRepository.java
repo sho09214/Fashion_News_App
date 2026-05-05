@@ -2,7 +2,9 @@ package com.example.Fashion_News_App.repository;
 
 import com.example.Fashion_News_App.entity.NewsEntity;
 import com.example.Fashion_News_App.entity.NewsMytagMappingEntity;
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -55,5 +57,32 @@ public interface NewsMytagRepository extends JpaRepository<NewsMytagMappingEntit
     List<Object[]> findNewsWithTagsByUserIdAndTagName(
             @Param("userId") Long userId,
             @Param("tagName") String tagName
+    );
+
+    @Query("""
+        SELECT COUNT(m) > 0
+        FROM NewsMytagMappingEntity m
+        WHERE m.newsEntity.id = :newsId
+          AND m.myTagEntity.id = :mytagId
+          AND m.userId = :userId
+    """)
+    boolean existsByNewsEntityIdAndMyTagEntityIdAndUserId(
+            @Param("newsId") Long newsId,
+            @Param("mytagId") Long mytagId,
+            @Param("userId") Long userId
+    );
+
+    @Modifying
+    @Transactional
+    @Query("""
+        DELETE FROM NewsMytagMappingEntity m
+        WHERE m.newsEntity.id = :newsId
+          AND m.myTagEntity.id = :mytagId
+          AND m.userId = :userId
+    """)
+    void deleteByNewsEntityIdAndMyTagEntityIdAndUserId(
+            @Param("newsId") Long newsId,
+            @Param("mytagId") Long mytagId,
+            @Param("userId") Long userId
     );
 }

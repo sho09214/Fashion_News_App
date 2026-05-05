@@ -31,4 +31,10 @@ public interface MytagRepository extends JpaRepository<MytagEntity, Long> {
     List<MytagListResponseDto> findMytagsByUserId(@Param("userId") Long userId);
 
     void deleteByUserId(Long userId);
+
+    @Query("SELECT m FROM MytagEntity m WHERE m.userId = :userId AND m.tagName = :tagName")
+    Optional<MytagEntity> findByUserIdAndTagName(
+            @Param("userId") Long userId,
+            @Param("tagName") String tagName
+    );
 }
