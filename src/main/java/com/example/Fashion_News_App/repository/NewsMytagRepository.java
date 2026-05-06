@@ -85,4 +85,12 @@ public interface NewsMytagRepository extends JpaRepository<NewsMytagMappingEntit
             @Param("mytagId") Long mytagId,
             @Param("userId") Long userId
     );
+
+    @Modifying
+    @Transactional
+    @Query("DELETE FROM NewsMytagMappingEntity m WHERE m.myTagEntity.id = :mytagId AND m.userId = :userId")
+    void deleteByMytagIdAndUserId(
+            @Param("mytagId") Long mytagId,
+            @Param("userId") Long userId
+    );
 }

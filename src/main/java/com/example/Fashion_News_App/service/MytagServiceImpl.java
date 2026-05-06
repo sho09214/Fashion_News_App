@@ -7,6 +7,7 @@ import com.example.Fashion_News_App.dto.web.MytagListResponseDto;
 import com.example.Fashion_News_App.entity.MytagEntity;
 import com.example.Fashion_News_App.mapper.MytagMapper;
 import com.example.Fashion_News_App.repository.MytagRepository;
+import com.example.Fashion_News_App.repository.NewsMytagRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,7 @@ import java.util.stream.Collectors;
 public class MytagServiceImpl implements MytagServiceIF{
 
     private final MytagRepository mytagRepository;
-    private final MytagMapper mytagMapper;
+    private final NewsMytagRepository newsMytagRepository;
 
     //マイタグ一覧取得
     @Override
@@ -94,6 +95,9 @@ public class MytagServiceImpl implements MytagServiceIF{
         MytagEntity mytagEntity = mytagRepository
                 .findByIdAndUserId(mytagId, userId)
                 .orElseThrow(() -> new RuntimeException("マイタグが存在しません"));
+
+        // 関連するマッピングを先に削除
+        newsMytagRepository.deleteByMytagIdAndUserId(mytagId, userId);
 
         mytagRepository.delete(mytagEntity);
     }
